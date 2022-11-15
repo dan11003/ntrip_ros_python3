@@ -56,7 +56,7 @@ class ntripconnect(Thread):
             'Ntrip-Version': 'Ntrip/2.0',
             'User-Agent': 'NTRIP ntrip_ros',
             'Connection': 'close',
-            'Authorization': 'Basic ' + b64encode((self.ntc.ntrip_user + ':' + self.ntc.ntrip_pass).encode()).decode("ascii")
+            'Authorization': 'Basic ' + b64encode((self.ntc.ntrip_user + ':' + str(self.ntc.ntrip_pass)).encode()).decode("ascii")
             }
         connection = HTTPConnection(self.ntc.ntrip_server)
         connection.set_debuglevel(1)
@@ -93,7 +93,7 @@ class ntripconnect(Thread):
                     buf.append(data[0])
                     buf.append(data[1])
                     typ = (data[0] * 256 + data[1]) / 16
-                    print(str(datetime.now()), cnt, typ)
+                    print(str(datetime.utcnow()), cnt, typ)
                     cnt = cnt + 1
                     for x in range(cnt):
                         data = response.read(1)
