@@ -2,10 +2,10 @@
 <launch>
   <node pkg="ntrip_ros" type="ntripclient.py" name="ntrip_ros" output="screen">
  	 <param name="rtcm_topic" value="/rtcm"/>
- 	 <param name="ntrip_server" value="dk.nrtk.eu:9301"/>
- 	 <param name="ntrip_user" value="XXXXXX"/>
- 	 <param name="ntrip_pass" value="XXXXXX"/>
- 	 <param name="ntrip_stream" value="MSM_VRS"/>
- 	 <param name="nmea_gga" value="$GPGGA,193912.090,5701.452,N,00956.683,E,1,12,1.0,0.0,M,0.0,M,,*61"/>  </node>
+ 	 <param name="ntrip_server" value="rtk2go.com:2101"/>
+ 	 <param name="ntrip_user" value="dla.adolfsson@gmail.com"/>
+ 	 <param name="ntrip_pass" value="none"/>
+ 	 <param name="ntrip_stream" value="SweArbGotHag"/>
+ 	 <param name="nmea_gga" value="$GPGGA,093002.463,5915.230,N,01514.816,E,1,12,1.0,0.0,M,0.0,M,,*60"/>  </node>
 </launch>
 

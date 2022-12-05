@@ -2,7 +2,7 @@
 
 import rospy
 from datetime import datetime
-
+import requests, base64
 #from nmea_msgs.msg import Sentence
 from rtcm_msgs.msg import Message
 
@@ -52,11 +52,15 @@ class ntripconnect(Thread):
         self.stop = False
 
     def run(self):
+        usrPass = self.ntc.ntrip_user+":"+str(self.ntc.ntrip_pass)
+        encoded_u = base64.b64encode(usrPass.encode()).decode()
+        print("encoded")
+        print(encoded_u)
         headers = {
             'Ntrip-Version': 'Ntrip/2.0',
             'User-Agent': 'NTRIP ntrip_ros',
             'Connection': 'close',
-            'Authorization': 'Basic ' + b64encode((self.ntc.ntrip_user + ':' + self.ntc.ntrip_pass).encode()).decode("ascii")
+            'Authorization': 'Basic %s' % encoded_u
             }
         connection = HTTPConnection(self.ntc.ntrip_server)
         connection.set_debuglevel(1)
