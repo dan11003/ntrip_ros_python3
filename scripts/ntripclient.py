@@ -97,7 +97,8 @@ class ntripconnect(Thread):
                     buf.append(data[0])
                     buf.append(data[1])
                     typ = (data[0] * 256 + data[1]) / 16
-                    print(str(datetime.utcnow()), cnt, typ)
+                    #print(str(datetime.utcnow()), cnt, typ)
+                    rospy.loginfo_throttle(1, "NTRIP - Connected")
                     cnt = cnt + 1
                     for x in range(cnt):
                         data = response.read(1)
@@ -107,11 +108,13 @@ class ntripconnect(Thread):
                     rmsg.header.stamp = rospy.get_rostime()
                     self.ntc.pub.publish(rmsg)
                     buf = []
-                else: print (data)
+                else:
+                    print (data)
             else:
                 ''' If zero length data, close connection and reopen it '''
                 restart_count = restart_count + 1
                 print("Zero length ", restart_count)
+
                 connection.close()
                 connection = HTTPConnection(self.ntc.ntrip_server)
                 connection.request('GET', '/'+self.ntc.ntrip_stream, self.ntc.nmea_gga, headers)
